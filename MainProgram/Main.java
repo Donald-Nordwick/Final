@@ -9,27 +9,26 @@ public class Main {
 		int humRow;
 		int humCol;
 		char humInput = 'X';
-		char compInput = 'O';
+
 		
 		int answer = 1;
-		String skip;
 		
 		String statement;
-		do  {
-			System.out.println("Hello, we are going to play a game of tic tac toe.");
-			Boolean referee = false;
+		do  {																	//This loop will continue to run till the player decides they do not want to continue
+
+			Boolean referee = false; 								
 			Memory Memory = new Memory();
-			while (referee == false) {
+			while (referee == false) {											//This loop continues to play till referee decides there is a winner or a tie
 
 				boolean loop = false;
-				while (loop == false) {
+				while (loop == false) {											//This loop runs till there are no exceptions
 					try {
 
 						humRow = '\u0000';
 						humCol = '\u0000';
-						System.out.println("Please enter the row.");
+						System.out.println("Please enter a number from 1 to 3 for the row.");
 						humRow = input.nextInt();
-						System.out.println("Please enter the Column.");
+						System.out.println("Please enter a number from 1 to 3 for the Column.");
 						humCol = input.nextInt();
 						humRow--;
 						humCol--;
@@ -37,29 +36,28 @@ public class Main {
 
 						loop = true;
 
-					} catch (IOException overlap) {
+					} catch (IOException overlap) {												// if  Memory.Storage throws an exception this catch statement prints this
 						System.out.println("Please choose a spot that is not taken.");
-					} catch (NoSuchElementException outOfBounds) {
+					} catch (NoSuchElementException outOfBounds) {								// catches exception if number is out of bounds or if wrong data type is entered.
 						System.out.println("Please choose a Row and Column between 1 and 3");
 						input.next();
-
 					}
 
 				}
 
-				Memory.gameBoard();
-				referee = Memory.referee();
-				if (referee == true){
+				Memory.gameBoard();											//game board is printed with current entries
+				referee = Memory.referee();									// referee evaluates if there is a winner
+				if (referee == true){										// if condition breaks the loop if referee establishes a winner
 					break;
 				}
-				Memory.AI();
-				referee = Memory.referee();
-				Memory.gameBoard();
+				Memory.AI();												//AI enters its answer
+				referee = Memory.referee();									// referee evaluates if there is a winner
+				Memory.gameBoard();											// game board is printed with current entries
 			}
-			statement = Memory.statement();
+			statement = Memory.statement();									// statement is assigned to what the statement method is assigned
 			
 			boolean game = false;
-			while (game == false) {
+			while (game == false) {											// a while loop is established to catch exceptions for the user entry to see if they want to play again
 				try {
 					System.out.printf("%s\n", statement);
 					System.out.println("Would you like to play again? Press 1 for yes and any other whole number for no.");
